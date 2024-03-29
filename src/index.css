@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&family=Roboto+Slab:wght@100..900&family=Rubik:wght@400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    * {
+        @apply font-roboto-slab;
+    }
+    .container {
+        @apply mx-auto w-full px-3 sm:max-w-[600px] md:max-w-[740px] lg:max-w-[990px] xl:max-w-[1216px];
+    }
+    .container-second {
+        @apply mx-auto w-full px-3 sm:max-w-[600px] md:max-w-[1024px];
+    }
+}
