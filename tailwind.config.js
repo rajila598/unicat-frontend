@@ -8,9 +8,10 @@ export default {
                 "roboto-slab": ["Roboto Slab"],
             },
             colors: {
-                primary: "#14BDEE",
-                secondary: "#384158",
-                third: "#f3f3f3"
+                "primary": "#14BDEE",
+                "secondary": "#384158",
+                "third": "#f3f3f3",
+                "third-2": "#76777a",
             },
         },
     },
