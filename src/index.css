@@ -4,8 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 @layer components {
     * {
         @apply font-roboto-slab;
@@ -16,4 +14,29 @@
     .container-second {
         @apply mx-auto w-full px-3 sm:max-w-[600px] md:max-w-[1024px];
     }
+    .btn-div {
+        @apply w-auto px-5 bg-primary text-center rounded-sm;
+    }
+    .btn-text {
+        @apply text-white p-2 font-medium uppercase;
+    }
+    .course-blog-flex {
+        @apply flex gap-2 items-center;
+    }
+    .form-input {
+        @apply p-1 md:p-2 border border-third;
+    }
+    .content{
+        @apply container flex flex-col gap-4 justify-center items-center py-20 lg:py-24
+    }
+    .title {
+        @apply text-2xl md:text-3xl font-bold text-secondary text-center;
+    }
+    .sub-title{
+        @apply text-center text-third-2;
+    }
+    .card-text{
+        @apply text-xl text-secondary font-bold;
+    }
+
 }
