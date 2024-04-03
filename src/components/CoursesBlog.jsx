@@ -3,7 +3,7 @@ import { FaGraduationCap, FaStar } from "react-icons/fa";
 const CoursesBlog = ({ image, title, name, description, price }) => {
     return (
         <>
-            <div className="h-auto sm:w-96 lg:w-80 bg-white drop-shadow-xl rounded-md group">
+            <div className="h-auto sm:w-full lg:w-96 bg-white drop-shadow-xl rounded-md group">
                 <img src={image} alt="" className="rounded-t-md" />
 
                 <div className=" flex flex-col gap-3  p-5">

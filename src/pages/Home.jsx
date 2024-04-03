@@ -87,7 +87,7 @@ const Home = () => {
         },
         {
             image: "assets/images/course_4.jpg",
-            title: "Starting a Starup",
+        title: "Starting a Starup",
             name: "Mr. John Taylor",
             description: "Lorem, ipsum dolor sit amet consectetur adipisicing elit.",
             price: "$220",
