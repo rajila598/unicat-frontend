@@ -24,7 +24,7 @@
         @apply flex gap-2 items-center;
     }
     .form-input {
-        @apply p-1 md:p-2 border border-third;
+        @apply p-1 md:p-2 border border-gray-300 rounded-sm;
     }
     .content {
         @apply container flex flex-col gap-4 justify-center items-center py-20 lg:py-24;
@@ -38,8 +38,7 @@
     .card-text {
         @apply text-xl text-secondary font-bold;
     }
-
-    /* .course-main {
-        @apply sm:w-[600px] md:max-w-[700px] lg:max-w-[800px] xl:max-w-[1100px];
-    } */
+    .sidebar {
+        @apply flex flex-col gap-4 items-start p-4;
+    }
 }

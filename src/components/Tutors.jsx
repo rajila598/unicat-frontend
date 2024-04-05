@@ -1,9 +1,9 @@
 import { FaFacebookF, FaGooglePlusG, FaTwitter } from "react-icons/fa";
 
-const Tutors = ({image, name, department}) => {
+const Tutors = ({ image, name, department }) => {
     return (
         <>
-            <div className="relative w-full sm:w-96 lg:w-72">
+            <div className="relative w-full sm:w-96 lg:w-72 hover:scale-105 duration-300 transition-all">
                 <div className="flex justify-center relative -mb-[70px]">
                     <img src={image} alt="" className="rounded-md" />
                 </div>

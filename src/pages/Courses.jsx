@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import CoursesBlog from "../components/CoursesBlog";
 
 const Courses = () => {
@@ -50,7 +51,7 @@ const Courses = () => {
             <div>
                 <div className="container">
                     <div className="flex flex-col lg:flex-row gap-8">
-                        <div className="">
+                        <div className="xl:min-w-[850px]">
                             {/* search form */}
                             <div className="bg-third p-4 mb-10">
                                 <form action="" className="flex flex-col items-center  gap-5 lg:flex-row justify-center">
@@ -102,7 +103,128 @@ const Courses = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="sidebar"></div>
+                        <div className="sidebar">
+                            {/* categories */}
+                            <div className="p-3">
+                                <p className="title mb-5 text-left">Categories</p>
+                                <ul className="sub-title text-left leading-7">
+                                    <li>Art & Design</li>
+                                    <li>Business</li>
+                                    <li>IT & Software</li>
+                                    <li>Languages</li>
+                                    <li>Programming</li>
+                                </ul>
+                            </div>
+                            {/* latest course */}
+                            <div className="p-3">
+                                <p className="title text-left mb-5">Latest Courses</p>
+                                <div className="flex flex-col gap-3">
+                                    <div className="flex gap-3">
+                                        <img src="/assets/images/course_1.jpg" alt="" className="w-24 h-16" />
+                                        <div className="flex flex-col gap-2 justify-center">
+                                            <p className="font-bold text-secondary">How to design a Logo</p>
+                                            <p className="font-bold text-primary">Free</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-3">
+                                        <img src="/assets/images/course_1.jpg" alt="" className="w-24 h-16" />
+                                        <div className="flex flex-col gap-2 justify-center">
+                                            <p className="font-bold text-secondary">How to design a Logo</p>
+                                            <p className="font-bold text-primary">Free</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-3">
+                                        <img src="/assets/images/course_1.jpg" alt="" className="w-24 h-16" />
+                                        <div className="flex flex-col gap-2 justify-center">
+                                            <p className="font-bold text-secondary">How to design a Logo</p>
+                                            <p className="font-bold text-primary">Free</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* instagram */}
+                            <div className="p-3">
+                                <p className="title text-left mb-5">Instagram</p>
+                                <div className="grid grid-cols-3 gap-3">
+                                    <div className="w-20 h-20 relative group">
+                                        <img src="/assets/images/event_1.jpg" alt="" className="w-full h-full" />
+                                        <div className="hidden absolute top-0 left-0 w-full h-full group-hover:flex items-center justify-center bg-primary bg-opacity-60">
+                                            +
+                                        </div>
+                                    </div>
+                                    <div className="w-20 h-20 relative group">
+                                        <img src="/assets/images/event_1.jpg" alt="" className="w-full h-full" />
+                                        <div className="hidden absolute top-0 left-0 w-full h-full group-hover:flex items-center justify-center bg-primary bg-opacity-60">
+                                            +
+                                        </div>
+                                    </div>
+                                    <div className="w-20 h-20 relative group">
+                                        <img src="/assets/images/event_1.jpg" alt="" className="w-full h-full" />
+                                        <div className="hidden absolute top-0 left-0 w-full h-full group-hover:flex items-center justify-center bg-primary bg-opacity-60">
+                                            +
+                                        </div>
+                                    </div>
+                                    <div className="w-20 h-20 relative group">
+                                        <img src="/assets/images/event_1.jpg" alt="" className="w-full h-full" />
+                                        <div className="hidden absolute top-0 left-0 w-full h-full group-hover:flex items-center justify-center bg-primary bg-opacity-60">
+                                            +
+                                        </div>
+                                    </div>
+                                    <div className="w-20 h-20 relative group">
+                                        <img src="/assets/images/event_1.jpg" alt="" className="w-full h-full" />
+                                        <div className="hidden absolute top-0 left-0 w-full h-full group-hover:flex items-center justify-center bg-primary bg-opacity-60">
+                                            +
+                                        </div>
+                                    </div>
+                                    <div className="w-20 h-20 relative group">
+                                        <img src="/assets/images/event_1.jpg" alt="" className="w-full h-full" />
+                                        <div className="hidden absolute top-0 left-0 w-full h-full group-hover:flex items-center justify-center bg-primary bg-opacity-60">
+                                            +
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* tags */}
+                            <div className="p-3">
+                                <p className="title text-left mb-3">Tags</p>
+                                <ul className="text-third-2">
+                                    <li className="inline-block bg-third px-5 py-2 m-2">
+                                        <Link to={"/"}>Creative</Link>
+                                    </li>
+                                    <li className="inline-block bg-third px-5 py-2 m-2">
+                                        <Link to={"/"}>Unique</Link>
+                                    </li>
+                                    <li className="inline-block bg-third px-5 py-2 m-2">
+                                        <Link to={"/"}>Photography</Link>
+                                    </li>
+                                    <li className="inline-block bg-third px-5 py-2 m-2">
+                                        <Link to={"/"}>Ideas</Link>
+                                    </li>
+                                    <li className="inline-block bg-third px-5 py-2 m-2">
+                                        <Link to={"/"}>Wordpress</Link>
+                                    </li>
+                                    <li className="inline-block bg-third px-5 py-2 m-2">
+                                        <Link to={"/"}>Startup</Link>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            {/* banner */}
+                            <div className="p-3">
+                                <div className="relative">
+                                    <img src="/assets/images/banner_1.jpg" alt="" className="" />
+                                    <div className="flex items-center justify-center flex-col gap-2 absolute top-0 left-0 w-full h-full bg-primary bg-opacity-60">
+                                        <p className="text-xl font-bold text-white">Free Book</p>
+                                        <div className="btn-div bg-white hover:bg-primary group">
+                                            <button type="button" className="btn-text text-primary group-hover:text-white font-normal text-sm">
+                                                Download Now
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

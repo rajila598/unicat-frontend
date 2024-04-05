@@ -87,7 +87,7 @@ const Home = () => {
         },
         {
             image: "assets/images/course_4.jpg",
-        title: "Starting a Starup",
+            title: "Starting a Starup",
             name: "Mr. John Taylor",
             description: "Lorem, ipsum dolor sit amet consectetur adipisicing elit.",
             price: "$220",
@@ -216,11 +216,11 @@ const Home = () => {
                         {data.map((el) => {
                             return (
                                 <>
-                                    <div className="flex flex-col gap-2 items-center justify-center">
+                                    <div className="flex flex-col gap-2 items-center justify-center bg-white p-5 hover:drop-shadow-2xl hover:transition hover:duration-300">
                                         <div>
                                             <img src={el.image} alt={el.title} />
                                         </div>
-                                        <div className="text-xl text-secondary">{el.title}</div>
+                                        <div className="text-xl text-secondary font-bold">{el.title}</div>
                                         <div className="text-third-2 text-center">{el.description}</div>
                                     </div>
                                 </>
@@ -248,7 +248,9 @@ const Home = () => {
                         })}
                     </div>
                     <div className="btn-div">
-                        <button className="btn-text">View All Courses</button>
+                        <button className="btn-text" type="button">
+                            <Link to={"/courses"}>View All Courses</Link>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -424,7 +426,6 @@ const Home = () => {
                     </form>
                 </div>
             </div>
-            
         </>
     );
 };

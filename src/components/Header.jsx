@@ -1,4 +1,4 @@
-import { MdEmail, MdLocalPhone, MdSearch, MdShoppingCart } from "react-icons/md";
+import { MdEmail, MdLocalPhone, MdSearch } from "react-icons/md";
 import { FaTimes } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router-dom";
@@ -26,7 +26,7 @@ const Header = () => {
                                 </li>
                             </ul>
                             {/* login-link */}
-                            <Link className="flex h-12 bg-third px-3 items-center w-28 justify-center">
+                            <Link to={"/login"} className="flex h-12 bg-third px-3 items-center w-28 justify-center">
                                 <p>Login</p>
                             </Link>
                         </div>
@@ -59,30 +59,26 @@ const Header = () => {
                                     <form action="post" className={`${isMenuOpen ? "block" : "hidden"} w-24 lg:hidden`}>
                                         <input type="text" placeholder="search" className="w-24" />
                                     </form>
-                                    <Link to={"/"}>
+                                    <Link to={"/"} className="text-lg font-medium text-secondary active:text-primary active:underline">
                                         <li>Home</li>
                                     </Link>
-                                    <Link to={"/about"}>
+                                    <Link to={"/about"} className="text-lg font-medium text-secondary">
                                         <li>About</li>
                                     </Link>
-                                    <Link to={"/courses"}>
+                                    <Link to={"/courses"} className="text-lg font-medium text-secondary">
                                         <li>Courses</li>
                                     </Link>
-                                    <Link to={"/"}>
+                                    <Link to={"/blog"} className="text-lg font-medium text-secondary">
                                         <li>Blog</li>
                                     </Link>
-                                    <Link to={"/"}>
-                                        <li>Page</li>
-                                    </Link>
-                                    <Link to={"/"}>
+
+                                    <Link to={"/contact"} className="text-lg font-medium text-secondary">
                                         <li>Contact</li>
                                     </Link>
                                 </ul>
                                 <div className="flex gap-3 items-center text-2xl">
                                     <MdSearch className="hidden lg:block" />
-                                    <Link to={"/"}>
-                                        <MdShoppingCart />
-                                    </Link>
+
                                     <GiHamburgerMenu
                                         className="lg:hidden text-2xl"
                                         onClick={() => {

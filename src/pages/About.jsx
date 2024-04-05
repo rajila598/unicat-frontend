@@ -1,17 +1,55 @@
 // import Slider from "react-slick";
+import Slider from "react-slick";
 import Accordians from "../components/Accordians";
 import Tutors from "../components/Tutors";
 
 const About = () => {
-    // const settings = {
-    //     dots: false,
-    //     infinite: true,
-    //     speed: 500,
-    //     slidesToShow: 1,
-    //     slidesToScroll: 1,
-    //     nextArrow: false,
-    //     prevArrow: false,
-    // };
+    var settings = {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        // nextArrow: false,
+        // prevArrow: false,
+        responsive: [
+            {
+                breakpoint: 1280,
+                settings: {
+                    slidesToShow: 6,
+                    slidesToScroll: 1,
+                    speed: 500,
+                    infinite: true,
+                },
+            },
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 3,
+                    speed: 500,
+                    infinite: true,
+                },
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    speed: 500,
+                    initialSlide: 0,
+                },
+            },
+            {
+                breakpoint: 640,
+                settings: {
+                    slidesToShow: 2,
+                    speed: 500,
+                    slidesToScroll: 1,
+                },
+            },
+        ],
+    };
     let tutorData = [
         {
             image: "/assets/images/team_1.jpg",
@@ -69,6 +107,27 @@ const About = () => {
             text: "Courses",
         },
     ];
+    let logo = [
+        {
+            image: "/assets/images/partner_1.png",
+        },
+        {
+            image: "/assets/images/partner_2.png",
+        },
+        {
+            image: "/assets/images/partner_3.png",
+        },
+        {
+            image: "/assets/images/partner_4.png",
+        },
+        {
+            image: "/assets/images/partner_5.png",
+        },
+        {
+            image: "/assets/images/partner_6.png",
+        },
+    ];
+
     return (
         <>
             <div className="bg-third">
@@ -189,27 +248,17 @@ const About = () => {
 
             {/* logos */}
             <div className="bg-white">
-                <div className="content">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-28 items-center">
-                        <div>
-                            <img src="/assets/images/partner_1.png" alt="" />
-                        </div>
-                        <div>
-                            <img src="/assets/images/partner_2.png" alt="" />
-                        </div>
-                        <div>
-                            <img src="/assets/images/partner_3.png" alt="" />
-                        </div>
-                        <div>
-                            <img src="/assets/images/partner_4.png" alt="" />
-                        </div>
-                        <div>
-                            <img src="/assets/images/partner_5.png" alt="" />
-                        </div>
-                        <div>
-                            <img src="/assets/images/partner_6.png" alt="" />
-                        </div>
-                    </div>
+                <div className="container my-10">
+                    <Slider {...settings}>
+                        {logo.map((el) => {
+                            return (
+                                <div className="" key={el._id}>
+                                    <img src={el.image} alt="hihih" className="" />
+                                </div>
+                            );
+                        })}
+                        {/* </div> */}
+                    </Slider>
                 </div>
             </div>
         </>

@@ -4,7 +4,7 @@ import "react-accessible-accordion/dist/fancy-example.css";
 
 const Accordians = () => {
     return (
-        <Accordion allowZeroExpanded className="w-[500px]">
+        <Accordion allowZeroExpanded className="md:w-[500px]">
             <AccordionItem>
                 <AccordionItemHeading className="string[transition duration-300]">
                     <AccordionItemButton>Award for Best School 2017</AccordionItemButton>

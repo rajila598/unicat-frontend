@@ -48,16 +48,32 @@ const Footer = () => {
                         <p className="text-lg font-bold text-white">Contact US</p>
                         <div className="grid grid-cols-2 justify-between">
                             <ul className="leading-8">
-                                <li>Home</li>
-                                <li>About</li>
-                                <li>Contact</li>
-                                <li>Features</li>
+                                <li>
+                                    <Link to={"/"}>Home</Link>
+                                </li>
+                                <li>
+                                    <Link to={"/about"}>About</Link>
+                                </li>
+                                <li>
+                                    <Link to={"/contact"}>Contact</Link>
+                                </li>
+                                <li>
+                                    <Link to={"/"}>Features</Link>
+                                </li>
                             </ul>
                             <ul className="leading-8">
-                                <li>Courses</li>
-                                <li>Events</li>
-                                <li>Gallery</li>
-                                <li>FAQs</li>
+                                <li>
+                                    <Link to={"/courses"}>Courses</Link>
+                                </li>
+                                <li>
+                                    <Link to={"/"}>Events</Link>
+                                </li>
+                                <li>
+                                    <Link to={"/"}>Gallery</Link>
+                                </li>
+                                <li>
+                                    <Link to={"/"}>FAQs</Link>
+                                </li>
                             </ul>
                         </div>
                     </div>
