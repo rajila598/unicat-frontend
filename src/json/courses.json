@@ -1,0 +1,44 @@
+[
+    {
+    "image": "assets/images/course_1.jpg",
+    "title": "Software Training",
+    "name": "Mr. John Taylor",
+    "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit.",
+    "price": "$130"
+},
+{
+    "image": "assets/images/course_2.jpg",
+    "title": "Deploying Mobile Apps",
+    "name": "Ms. Lucius",
+    "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit.",
+    "price": "Free"
+},
+{
+    "image": "assets/images/course_4.jpg",
+    "title": "Starting a Starup",
+    "name": "Mr. Charles",
+    "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit.",
+    "price": "$220"
+},
+{
+    "image": "assets/images/course_4.jpg",
+    "title": "Learning basic german fast",
+    "name": "Mr. John Taylor",
+    "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit.",
+    "price": "$220"
+},
+{
+    "image": "assets/images/course_4.jpg",
+    "title": "Business Groud Up",
+    "name": "Ms. Lucius",
+    "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit.",
+    "price": "$220"
+},
+{
+    "image": "assets/images/course_4.jpg",
+    "title": "Java Technology",
+    "name": "Mr. Charles",
+    "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit.",
+    "price": "$220"
+}
+]

@@ -18,7 +18,7 @@
         @apply w-auto px-5 bg-primary text-center rounded-sm;
     }
     .btn-text {
-        @apply text-white p-2 font-medium uppercase;
+        @apply text-white p-2 font-medium uppercase w-full;
     }
     .course-blog-flex {
         @apply flex gap-2 items-center;

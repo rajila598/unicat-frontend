@@ -8,6 +8,8 @@ import Contact from "./pages/Contact";
 import Blogs from "./pages/Blogs";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
     return (
@@ -23,6 +25,7 @@ const App = () => {
                 <Route path="register" element={<Register />} />
             </Routes>
             <Footer />
+            <ToastContainer />
         </>
     );
 };
