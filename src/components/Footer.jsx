@@ -87,7 +87,7 @@ const Footer = () => {
                 <div className="container text-third">
                     <hr />
                     <div className="flex justify-between items-center text-sm font-light py-3">
-                        <p>Copyright &copy;2024 All Rights Reserved.</p>
+                        <p>Copyright &copy;2024 All Rights Reserved. This website was developed using a template from ThemeWagon</p>
                         <div className="flex gap-10">
                             <p>Copyright Notification</p>
                             <p>Terms of Use</p>
