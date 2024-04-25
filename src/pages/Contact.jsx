@@ -1,7 +1,7 @@
 const Contact = () => {
     return (
         <>
-            <div className="">
+            <div className="bg-white">
                 <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14128.006694747377!2d85.32330429999999!3d27.7172346!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19042204f6a1%3A0xa7af95e7f7d75e66!2sHotel%20Yak%20%26%20Yeti!5e0!3m2!1sen!2snp!4v1712209332457!5m2!1sen!2snp"
                     // width="600"
@@ -12,7 +12,7 @@ const Contact = () => {
                     className="w-full h-96 lg:h-[450px]"
                 ></iframe>
                 <div className="container">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 my-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 py-10">
                         <div>
                             <p className="title mb-6 text-left">Contact Form</p>
                             <form action="" className="flex flex-col gap-5">

@@ -48,7 +48,7 @@ const Courses = () => {
     ];
     return (
         <>
-            <div>
+            <div className="bg-white">
                 <div className="container">
                     <div className="flex flex-col lg:flex-row gap-8">
                         <div className="xl:min-w-[850px]">

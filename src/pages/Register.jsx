@@ -1,27 +1,37 @@
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import axios from "axios";
+import { VITE_API_URL } from "../constants/domain";
 
 const Register = () => {
     const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
-        let name = e.target.uname.value;
-        let email = e.target.email.value;
-        let password = e.target.password.value;
-        let repassword = e.target.repassword.value;
+        axios.post(`${VITE_API_URL}/auth/signup`, {
+            name: e.target.uname.value,
+            email: e.target.email.value,
+            password: e.target.password.value,
+            repassword: e.target.repassword.value,
+            role: e.target.role.value,
+        }).then(res => {
+            console.log(res);
+            toast("signed in successfully")
+            navigate('/login');
+        }).catch(err => {
+            let errMsg = ""
+            err.response.data.errors.forEach(el => {
+                errMsg += `${el.params}: ${el.msg}`
+            })
+            toast.error(errMsg);
+        });
+        
 
-        if (name === "" || email === "" || password === "" || repassword === "") {
-            toast.error("All fields are required");
-        } else {
-            toast.success("Signed in successfully");
-            navigate("/login");
-        }
-       
+        
     };
 
     return (
         <>
-            <div className="">
+            <div className="bg-white pb-1">
                 <div className="container flex justify-center mb-10">
                     <div className="w-[600px] p-4">
                         <p className="title mb-5">Register</p>
@@ -34,8 +44,10 @@ const Register = () => {
                             <input type="password" className="form-input" name="password" />
                             <label htmlFor="">Confirm Password</label>
                             <input type="password" className="form-input" name="repassword" />
+                            <label htmlFor="">Role</label>
+                            <input type="text" className="form-input" name="role" />
                             <div className="btn-div">
-                                <button className="btn-text" type="submit">
+                                <button className="btn-text">
                                     Register
                                 </button>
                             </div>

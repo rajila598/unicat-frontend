@@ -24,7 +24,7 @@
         @apply flex gap-2 items-center;
     }
     .form-input {
-        @apply p-1 md:p-2 border border-gray-300 rounded-sm;
+        @apply p-1 md:p-2 border border-gray-300 rounded-sm bg-white;
     }
     .content {
         @apply container flex flex-col gap-4 justify-center items-center py-20 lg:py-24;

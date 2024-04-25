@@ -1,24 +1,34 @@
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { VITE_API_URL } from "../constants/domain";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setUser } from "../app/slice/userSlice";
 
 const Login = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch()
     const handleSubmit = (e) => {
         e.preventDefault();
-        let email = e.target.email.value;
-        let password = e.target.password.value;
-
-        if (email === "" || password === "") {
-            toast.error("All fields are required");
-        } else {
-            toast.success("Logged in successfully");
-            navigate("/");
-        }
+        axios.post(`${VITE_API_URL}/auth/login`, {
+            email: e.target.email.value,
+            password: e.target.password.value
+        }).then(res => {
+            toast("Login Successfull")
+            navigate('/')
+            // console.log(res.data.user);
+            dispatch(setUser(res.data.user))
+            localStorage.setItem("token", res.data.token)
+        }).catch(err => {
+            console.log(err);
+            toast.error("failed")
+        }) 
+       
        
     };
     return (
         <>
-            <div className="">
+            <div className="bg-white pb-1">
                 <div className="container flex justify-center mb-10">
                     <div className="w-[600px] p-4">
                         <p className="title mb-5">Login</p>
