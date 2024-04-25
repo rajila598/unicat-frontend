@@ -10,7 +10,7 @@ const Login = () => {
     const dispatch = useDispatch()
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(`${VITE_API_URL}/auth/login`, {
+        axios.post(`${VITE_API_URL}/auth/login/lo`, {
             email: e.target.email.value,
             password: e.target.password.value
         }).then(res => {
@@ -20,17 +20,19 @@ const Login = () => {
             dispatch(setUser(res.data.user))
             localStorage.setItem("token", res.data.token)
         }).catch(err => {
-            if (err.code == "ERR_BAD_REQUEST") {
-                toast.error("404 Not Found");
-            } else if (err.code == "ERR_NETWORK") {
-                toast.error("503 SERVER ERROR");
-            } else {
+            console.log(err.response);
+            if(err.response?.data.errors) {
                 let errMsg = "";
                 err.response.data.errors.forEach((el) => {
                     errMsg += `${el.params}: ${el.msg}`;
                 });
                 toast.error(errMsg);
+            }else if(err.response?.status) {
+                toast.error(err.response.status+" "+err.response.statusText);
+            } else{
+                toast.error("Server Error")
             }
+            
         }) 
        
        

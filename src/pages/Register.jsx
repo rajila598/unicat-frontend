@@ -22,17 +22,16 @@ const Register = () => {
                 navigate("/login");
             })
             .catch((err) => {
-                console.log(err);
-                if (err.code == "ERR_BAD_REQUEST") {
-                    toast.error("404 Not Found");
-                } else if (err.code == "ERR_NETWORK") {
-                    toast.error("503 SERVER ERROR");
-                } else {
+                if(err.response?.data.errors) {
                     let errMsg = "";
                     err.response.data.errors.forEach((el) => {
                         errMsg += `${el.params}: ${el.msg}`;
                     });
                     toast.error(errMsg);
+                }else if(err.response?.status) {
+                    toast.error(err.response.status+" "+err.response.statusText);
+                } else{
+                    toast.error("Server Error")
                 }
             });
     };
