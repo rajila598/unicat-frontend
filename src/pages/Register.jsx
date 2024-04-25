@@ -7,26 +7,34 @@ const Register = () => {
     const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(`${VITE_API_URL}/auth/signup`, {
-            name: e.target.uname.value,
-            email: e.target.email.value,
-            password: e.target.password.value,
-            repassword: e.target.repassword.value,
-            role: e.target.role.value,
-        }).then(res => {
-            console.log(res);
-            toast("signed in successfully")
-            navigate('/login');
-        }).catch(err => {
-            let errMsg = ""
-            err.response.data.errors.forEach(el => {
-                errMsg += `${el.params}: ${el.msg}`
-            })
-            toast.error(errMsg);
-        });
-        
 
-        
+        axios
+            .post(`${VITE_API_URL}/auth/signup`, {
+                name: e.target.uname.value,
+                email: e.target.email.value,
+                password: e.target.password.value,
+                repassword: e.target.repassword.value,
+                role: e.target.role.value,
+            })
+            .then((res) => {
+                console.log(res);
+                toast("signed in successfully");
+                navigate("/login");
+            })
+            .catch((err) => {
+                console.log(err);
+                if (err.code == "ERR_BAD_REQUEST") {
+                    toast.error("404 Not Found");
+                } else if (err.code == "ERR_NETWORK") {
+                    toast.error("503 SERVER ERROR");
+                } else {
+                    let errMsg = "";
+                    err.response.data.errors.forEach((el) => {
+                        errMsg += `${el.params}: ${el.msg}`;
+                    });
+                    toast.error(errMsg);
+                }
+            });
     };
 
     return (
@@ -47,9 +55,7 @@ const Register = () => {
                             <label htmlFor="">Role</label>
                             <input type="text" className="form-input" name="role" />
                             <div className="btn-div">
-                                <button className="btn-text">
-                                    Register
-                                </button>
+                                <button className="btn-text">Register</button>
                             </div>
                         </form>
                         <p>

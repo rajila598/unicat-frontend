@@ -20,8 +20,17 @@ const Login = () => {
             dispatch(setUser(res.data.user))
             localStorage.setItem("token", res.data.token)
         }).catch(err => {
-            console.log(err);
-            toast.error("failed")
+            if (err.code == "ERR_BAD_REQUEST") {
+                toast.error("404 Not Found");
+            } else if (err.code == "ERR_NETWORK") {
+                toast.error("503 SERVER ERROR");
+            } else {
+                let errMsg = "";
+                err.response.data.errors.forEach((el) => {
+                    errMsg += `${el.params}: ${el.msg}`;
+                });
+                toast.error(errMsg);
+            }
         }) 
        
        
