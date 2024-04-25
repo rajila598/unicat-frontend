@@ -10,7 +10,7 @@ const Login = () => {
     const dispatch = useDispatch()
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(`${VITE_API_URL}/auth/login/lo`, {
+        axios.post(`${VITE_API_URL}/auth/login`, {
             email: e.target.email.value,
             password: e.target.password.value
         }).then(res => {
