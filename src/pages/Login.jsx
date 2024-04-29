@@ -14,7 +14,7 @@ const Login = () => {
             email: e.target.email.value,
             password: e.target.password.value
         }).then(res => {
-            toast("Login Successfull")
+            toast("Login Successful")
             navigate('/')
             // console.log(res.data.user);
             dispatch(setUser(res.data.user))
@@ -47,7 +47,7 @@ const Login = () => {
                             <label htmlFor="">Email</label>
                             <input type="text" className="form-input" name="email"/>
                             <label htmlFor="">Password</label>
-                            <input type="text" className="form-input" name="password"/>
+                            <input type="password" className="form-input" name="password"/>
                             <div className="btn-div">
                                 <button className="btn-text" type="submit">Login</button>
                             </div>

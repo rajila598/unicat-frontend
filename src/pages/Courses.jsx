@@ -1,7 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import CoursesBlog from "../components/CoursesBlog";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { VITE_API_URL } from "../constants/domain";
+import { Button, Pagination } from "react-daisyui";
 
 const Courses = () => {
+    const [courses, setCourses] = useState([]);
+    const [perPage, setPerPage] = useState(6);
+    const [page, setPage] = useState(1);
+    const [totalCourseCount, setTotalCourseCount] = useState(0);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchError, setSearchError] = useState(false);
+    const args = {
+        dataTheme: "light",
+    };
     let coursesData = [
         {
             image: "assets/images/course_1.jpg",
@@ -46,6 +59,40 @@ const Courses = () => {
             price: "$220",
         },
     ];
+    const handlePerPageChange = (e) => {
+        setPerPage(e.target.value);
+    };
+
+    useEffect(() => {
+        let search = searchParams.get("search") || "";
+        axios
+            .get(`${VITE_API_URL}/courses?perPage=${perPage}&page=${page}&search=${search}`)
+            .then((res) => {
+                console.log(res.data.data);
+                setCourses(res.data.data);
+                setTotalCourseCount(res.data.total);
+                if(res.data == {}){
+                    setSearchError(res)
+                    console.log(res);
+                }
+            })
+            .catch((err) => {
+                setCourses(coursesData);
+                setPerPage(6);
+                setPage(1)
+                console.log(err);
+            });
+    }, [perPage, page, searchParams]);
+    const totalPages = Math.ceil(totalCourseCount / perPage);
+    let pageNum = [];
+    for (let i = 1; i <= totalPages; i++) {
+        pageNum.push(i);
+    }
+    const handleSearch = (e) => {
+        e.preventDefault;
+        search = e.target.name.value;
+        
+    }
     return (
         <>
             <div className="bg-white">
@@ -54,13 +101,13 @@ const Courses = () => {
                         <div className="xl:min-w-[850px]">
                             {/* search form */}
                             <div className="bg-third p-4 mb-10">
-                                <form action="" className="flex flex-col items-center  gap-5 lg:flex-row justify-center">
-                                    <input type="text" placeholder="Search Courses" className="form-input w-60" />
+                                <form action="" className="flex flex-col items-center  gap-5 lg:flex-row justify-center" onSubmit={handleSearch}>
+                                    <input type="text" placeholder="Search Courses" className="form-input w-60" name="search"/>
                                     <select name="" id="" className="form-input w-60">
                                         <option value="">All Categories</option>
-                                        <option value="">Categories</option>
-                                        <option value="">Categories</option>
-                                        <option value="">Categories</option>
+                                        <option value="it">IT & Software</option>
+                                        <option value="programming">Programming</option>
+                                        <option value="science">Science</option>
                                     </select>
                                     <div className="btn-div">
                                         <button className="btn-text w-32">Search Now</button>
@@ -70,13 +117,13 @@ const Courses = () => {
 
                             {/* coursees */}
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-4">
-                                {coursesData.map((el) => {
+                                {courses.map((el) => {
                                     return (
                                         <CoursesBlog
                                             key={el._id}
                                             image={el.image}
                                             title={el.title}
-                                            name={el.name}
+                                            name={el.createdBy?.name || el.name}
                                             description={el.description}
                                             price={el.price}
                                         />
@@ -86,19 +133,27 @@ const Courses = () => {
 
                             {/* pagination */}
                             <div className="flex justify-between flex-col lg:flex-row p-4">
-                                <div className="flex gap-2">
-                                    <div className="border w-10 h-8 p-1 text-center bg-primary">1</div>
-                                    <div className="border w-10 h-8 p-1 text-center">2</div>
-                                    <div className="border w-10 h-8 p-1 text-center">3</div>
-                                    <div className="border w-10 h-8 p-1 text-center">n</div>
-                                </div>
+                                <Pagination {...args}>
+                                    {pageNum.map((el) => (
+                                        <Button key={el} className={`join-item ${el === page ? "bg-primary" : ""}`} onClick={() => setPage(el)}>
+                                            {el}
+                                        </Button>
+                                    ))}
+                                    
+                                    {/* <Button className="join-item ">2</Button>
+                                    <Button className="join-item ">3</Button>
+                                    <Button className="join-item">4</Button> */}
+                                </Pagination>
                                 <div className="flex flex-col lg:flex-row gap-4 items-center justify-center">
-                                    <p>Showing 1-6 of 6 results: </p>
-                                    <select name="" id="" className="form-input">
-                                        <option value="">6</option>
-                                        <option value="">12</option>
-                                        <option value="">18</option>
-                                        <option value="">24</option>
+                                    <p>{`Showing ${(page - 1) * perPage + 1}-${Math.min(
+                                        page * perPage,
+                                        totalCourseCount
+                                    )} of ${totalCourseCount} results: `}</p>
+                                    <select name="" id="" className="form-input" onChange={handlePerPageChange}>
+                                        <option value="6">6</option>
+                                        <option value="12">12</option>
+                                        <option value="18">18</option>
+                                        <option value="24">24</option>
                                     </select>
                                 </div>
                             </div>

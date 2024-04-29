@@ -4,7 +4,7 @@ const CoursesBlog = ({ image, title, name, description, price }) => {
     return (
         <>
             <div className="h-auto sm:w-full lg:w-80 xl:w-96 bg-white drop-shadow-xl rounded-md group">
-                <img src={image} alt="" className="rounded-t-md" />
+                <img src={image} alt="" className="rounded-t-md w-full" />
 
                 <div className=" flex flex-col gap-3  p-5">
                     <p className="card-text">{title}</p>

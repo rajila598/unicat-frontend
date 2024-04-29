@@ -7,6 +7,7 @@ import Events from "../components/Events";
 import Tutors from "../components/Tutors";
 import { Link } from "react-router-dom";
 import 'react-loading-skeleton/dist/skeleton.css'
+import { useEffect } from "react";
 
 const Home = () => {
     function SampleNextArrow(props) {
@@ -163,6 +164,9 @@ const Home = () => {
             department: "Math & physics",
         },
     ];
+    // useEffect(() => {
+    //     axios.get()
+    // })
     return (
         <>
             {/* banner */}
