@@ -5,11 +5,21 @@ import Slider from "react-slick";
 import CoursesBlog from "../components/CoursesBlog";
 import Events from "../components/Events";
 import Tutors from "../components/Tutors";
-import { Link } from "react-router-dom";
-import 'react-loading-skeleton/dist/skeleton.css'
-import { useEffect } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import "react-loading-skeleton/dist/skeleton.css";
+import { useEffect, useState } from "react";
+import { VITE_API_URL } from "../constants/domain";
+import axios from "axios";
 
 const Home = () => {
+    const [popularCourses, setPopularCourses] = useState([]);
+    const [tutor, setTutor] = useState([]);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchError, setSearchError] = useState(false);
+    const [priceRange, setPriceRange] = useState("");
+    const [priceFrom, setPriceFrom] = useState("");
+    const [priceTo, setPriceTo] = useState("");
+    const navigate = useNavigate();
     function SampleNextArrow(props) {
         const { className, style, onClick } = props;
         return (
@@ -24,13 +34,13 @@ const Home = () => {
         );
     }
     const settings = {
-        dots: false,
+        dots: true,
         infinite: true,
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        nextArrow: <SampleNextArrow />,
-        prevArrow: <SamplePrevArrow />,
+        // nextArrow: <SampleNextArrow />,
+        // prevArrow: <SamplePrevArrow />,
     };
     let bannerData = [
         {
@@ -39,7 +49,7 @@ const Home = () => {
             subTitle: "Future of Education Technology",
         },
         {
-            image: "/assets/images/banner.jpg",
+            image: "/assets/images/banner_1.jpg",
             title: "The Premium System Education",
             subTitle: "Future of Education Technology",
         },
@@ -164,9 +174,50 @@ const Home = () => {
             department: "Math & physics",
         },
     ];
-    // useEffect(() => {
-    //     axios.get()
-    // })
+    if (priceRange) {
+        let price = priceRange.split("-").map(Number);
+        console.log("----from---", price[0], "----to----", price[1]);
+        setPriceFrom(price[0]);
+        setPriceTo(price[1]);
+    }
+    useEffect(() => {
+        let search = searchParams.get("search") || "";
+        axios
+            .get(`${VITE_API_URL}/courses?perPage=3&search=${search}&priceFrom=${priceFrom}&priceTo=${priceTo}`)
+            .then((res) => {
+                setPopularCourses(res.data.data);
+
+                if (res.data == {}) {
+                    setSearchError(res);
+                    console.log(res);
+                }
+            })
+            .catch((err) => {
+                setPopularCourses(coursesData);
+                console.log(err);
+            });
+        axios
+            .get(`${VITE_API_URL}/auth/tutor`)
+            .then((res) => {
+                setTutor(res.data.data);
+                console.log(res.data);
+            })
+            .catch((err) => {
+                // setTutor(tutorData);
+                console.log(err);
+            });
+    }, [searchParams, priceRange]);
+    const handleSearch = (e) => {
+        e.preventDefault;
+        search = e.target.name.value;
+        navigate("/courses");
+    };
+    const handlePriceSearch = (e) => {
+        e.preventDefault;
+        setPriceRange(e.target.value);
+        
+        navigate('/courses');
+    };
     return (
         <>
             {/* banner */}
@@ -183,26 +234,7 @@ const Home = () => {
                                 >
                                     <p className="text-4xl md:text-6xl text-secondary font-bold text-center">{el.title}</p>
                                     <p className="text-xl md:text-2xl text-third-2 text-center">{el.subTitle}</p>
-                                    <div className="flex gap-3 flex-col md:flex-row items-center">
-                                        <form className="flex flex-col sm:flex-row">
-                                            <input type="type" placeholder="keyword search" className="form-input" />
-                                            <select className="form-input text-third-2">
-                                                <option value="">Category Courses</option>
-                                                <option value="">Category</option>
-                                                <option value="">Category</option>
-                                            </select>
-                                            <select className="form-input text-third-2">
-                                                <option value="">Select Price Type</option>
-                                                <option value="">Price Type</option>
-                                                <option value="">Price Type</option>
-                                            </select>
-                                        </form>
-                                        <div className="btn-div">
-                                            <button type="button" className="btn-text">
-                                                Search
-                                            </button>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </>
                         );
@@ -248,8 +280,17 @@ const Home = () => {
                         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio molestias dolores repellat iusto qui tempora id facere, nesciunt.
                     </p>
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 py-4">
-                        {coursesData.map((el) => {
-                            return <CoursesBlog key={el._id} image={el.image} title={el.title} name={el.name} description={el.description} price={el.price} />;
+                        {popularCourses.map((el) => {
+                            return (
+                                <CoursesBlog
+                                    key={el._id}
+                                    image={el.image}
+                                    title={el.title}
+                                    name={el.createdBy?.name || el.name}
+                                    description={el.description}
+                                    price={el.price}
+                                />
+                            );
                         })}
                     </div>
                     <div className="btn-div">
@@ -352,8 +393,8 @@ const Home = () => {
                     <p className="title">The Best Tutors in Town</p>
                     <p className="sub-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem temporibus explicabo quasi </p>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-10">
-                        {tutorData.map((el) => {
-                            return <Tutors key={el._id} image={el.image} name={el.name} department={el.department} />;
+                        {tutor.map((el) => {
+                            return <Tutors key={el._id} image={"/assets/images/team_1.jpg"} name={el.name} department={el.department} />;
                         })}
                     </div>
                 </div>

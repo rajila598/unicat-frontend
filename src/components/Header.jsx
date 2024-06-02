@@ -3,9 +3,19 @@ import { FaTimes } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { Dropdown } from "react-daisyui";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../app/slice/userSlice";
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const user = useSelector((store) => store.user.value);
+    const users = JSON.parse(localStorage.getItem("user"))
+    const dispatch = useDispatch();
+    const handleLogout = () => {
+        dispatch(logout());
+    }
+
     return (
         <>
             <div className="">
@@ -26,9 +36,29 @@ const Header = () => {
                                 </li>
                             </ul>
                             {/* login-link */}
-                            <Link to={"/login"} className="flex h-12 bg-third px-3 items-center w-28 justify-center">
-                                <p>Login</p>
-                            </Link>
+                            <div className="bg-primary z-50">
+                                {users ? (
+                                    <>
+                                        <Dropdown dataTheme="light">
+                                            <Dropdown.Toggle><p className="text-third-2">{users.name}</p></Dropdown.Toggle>
+                                            <Dropdown.Menu className="w-52">
+                                                <Dropdown.Item>
+                                                    <Link to={"/allcourses"}>All Courses</Link>
+                                                </Dropdown.Item>
+                                                <Dropdown.Item onClick={handleLogout}>
+                                                    Logout
+                                                </Dropdown.Item>
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Link to={"/login"} className="flex h-12 bg-third px-3 items-center w-28 justify-center">
+                                            <p>Login</p>
+                                        </Link>
+                                    </>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -62,17 +92,16 @@ const Header = () => {
                                     <Link to={"/"} className="text-lg font-medium text-secondary active:text-primary active:underline">
                                         <li>Home</li>
                                     </Link>
-                                    <Link to={"/about"} className="text-lg font-medium text-secondary">
+                                    <Link to={"/about"} className="text-lg font-medium text-secondary active:text-primary active:underline">
                                         <li>About</li>
                                     </Link>
-                                    <Link to={"/courses"} className="text-lg font-medium text-secondary">
+                                    <Link to={"/courses"} className="text-lg font-medium text-secondary active:text-primary active:underline">
                                         <li>Courses</li>
                                     </Link>
-                                    <Link to={"/blog"} className="text-lg font-medium text-secondary">
+                                    <Link to={"/blog"} className="text-lg font-medium text-secondary active:text-primary active:underline">
                                         <li>Blog</li>
                                     </Link>
-
-                                    <Link to={"/contact"} className="text-lg font-medium text-secondary">
+                                    <Link to={"/contact"} className="text-lg font-medium text-secondary active:text-primary active:underline">
                                         <li>Contact</li>
                                     </Link>
                                 </ul>

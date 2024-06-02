@@ -15,10 +15,11 @@ const Login = () => {
             password: e.target.password.value
         }).then(res => {
             toast("Login Successful")
-            navigate('/')
-            // console.log(res.data.user);
+            localStorage.setItem("user", JSON.stringify(res.data.user))
             dispatch(setUser(res.data.user))
             localStorage.setItem("token", res.data.token)
+            navigate('/')
+            // console.log(res.data.user);
         }).catch(err => {
             console.log(err.response);
             if(err.response?.data.errors) {
@@ -30,7 +31,7 @@ const Login = () => {
             }else if(err.response?.status) {
                 toast.error(err.response.status+" "+err.response.statusText);
             } else{
-                toast.error("Server Error")
+                toast.error("Server Error---")
             }
             
         }) 

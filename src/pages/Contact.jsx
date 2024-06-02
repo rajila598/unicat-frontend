@@ -1,4 +1,17 @@
+import axios from "axios";
+import { useEffect } from "react";
+import { VITE_API_URL } from "../constants/domain";
+import { useState } from "react";
+
 const Contact = () => {
+    let [contactInfo, setContactInfo] = useState([]);
+    useEffect(() => {
+        axios.get(`${VITE_API_URL}/api/contact`)
+        .then((res) => {
+            console.log(res.data);  //??? res.data.?k auncha
+            // setContactInfo()
+        });
+    });
     return (
         <>
             <div className="bg-white">

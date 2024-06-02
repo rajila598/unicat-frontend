@@ -12,6 +12,9 @@ const Courses = () => {
     const [totalCourseCount, setTotalCourseCount] = useState(0);
     const [searchParams, setSearchParams] = useSearchParams();
     const [searchError, setSearchError] = useState(false);
+    const [priceRange, setPriceRange] = useState('');
+    let priceFrom;
+    let priceTo;
     const args = {
         dataTheme: "light",
     };
@@ -62,11 +65,16 @@ const Courses = () => {
     const handlePerPageChange = (e) => {
         setPerPage(e.target.value);
     };
-
+    if(priceRange){
+        let price = priceRange.split('-').map(Number);
+        console.log("----from---",price[0],"----to----", price[1])
+        priceFrom = price[0];
+        priceTo = price[1];
+    }
     useEffect(() => {
         let search = searchParams.get("search") || "";
         axios
-            .get(`${VITE_API_URL}/courses?perPage=${perPage}&page=${page}&search=${search}`)
+            .get(`${VITE_API_URL}/courses?perPage=${perPage}&page=${page}&search=${search}&priceFrom=${priceFrom}&priceTo=${priceTo}`)
             .then((res) => {
                 console.log(res.data.data);
                 setCourses(res.data.data);
@@ -82,7 +90,7 @@ const Courses = () => {
                 setPage(1)
                 console.log(err);
             });
-    }, [perPage, page, searchParams]);
+    }, [perPage, page, searchParams, priceRange]);
     const totalPages = Math.ceil(totalCourseCount / perPage);
     let pageNum = [];
     for (let i = 1; i <= totalPages; i++) {
@@ -92,6 +100,12 @@ const Courses = () => {
         e.preventDefault;
         search = e.target.name.value;
         
+    }
+    const handlePriceSearch = (e) => {
+        e.preventDefault;
+        
+        setPriceRange(e.target.value);
+        // navigate('/courses');
     }
     return (
         <>
@@ -109,6 +123,13 @@ const Courses = () => {
                                         <option value="programming">Programming</option>
                                         <option value="science">Science</option>
                                     </select>
+                                    <select className="form-input text-third-2" onChange={handlePriceSearch}>
+                                                <option value="">Select Price Type</option>
+                                                <option value="0-1000">0-1000</option>
+                                                <option value="1000-5000">1000-5000</option>
+                                                <option value="5000-10000">5000-10000</option>
+                                                <option value="10000-15000">10000-15000</option>
+                                            </select>
                                     <div className="btn-div">
                                         <button className="btn-text w-32">Search Now</button>
                                     </div>

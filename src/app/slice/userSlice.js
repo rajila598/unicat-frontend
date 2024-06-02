@@ -8,10 +8,23 @@ export const userSlice = createSlice({
     reducers: {
         setUser: (state, action) => {
             console.log(action);
-            state.value = action.payload;
+            state.value = JSON.parse(localStorage.getItem("user")) || action.payload;
+        },
+        logout: (state) => {
+            state.value = null,
+            localStorage.removeItem("user");
+            localStorage.removeItem("token")
         }
     }
 })
 
-export const { setUser } = userSlice.actions
+export const { setUser, logout } = userSlice.actions
+
+export const initializeUserState = () => {
+    const userData = JSON.parse(localStorage.getItem("user")) || null;
+    return {
+      user: userData
+    };
+  };
+
 export default userSlice.reducer;
