@@ -16,12 +16,14 @@ const UpsertCourses = () => {
     const [data, setData] = useState(initialValue);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [validationErrors, setValidationErrors] = useState({});
+    console.log(_id);
     useEffect(() => {
         if (_id) {
             axios
                 .get(`${VITE_API_URL}/courses/${_id}`)
                 .then((res) => {
                     setData(res.data.data);
+                    console.log(res.data.data);
                 })
                 .catch((err) => {
                     toast.error("something is wrong");

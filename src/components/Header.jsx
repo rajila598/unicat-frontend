@@ -45,6 +45,9 @@ const Header = () => {
                                                 <Dropdown.Item>
                                                     <Link to={"/allcourses"}>All Courses</Link>
                                                 </Dropdown.Item>
+                                                <Dropdown.Item>
+                                                    <Link to={"/mycourses"}>My Courses</Link>
+                                                </Dropdown.Item>
                                                 <Dropdown.Item onClick={handleLogout}>
                                                     Logout
                                                 </Dropdown.Item>

@@ -19,6 +19,8 @@ import { useDispatch } from "react-redux";
 import { setUser } from "./app/slice/userSlice";
 import axios from "axios";
 import { RingLoader } from "react-spinners";
+import MyCourses from "./pages/MyCourses";
+import CourseDetails from "./pages/CourseDetails";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -58,6 +60,7 @@ const App = () => {
                         <Route path="/" element={<Home />} />
                         <Route path="about" element={<About />} />
                         <Route path="courses" element={<Courses />} />
+                        <Route path="courses/:_id" element={<CourseDetails />} />
                         <Route path="contact" element={<Contact />} />
                         <Route path="blog" element={<Blogs />} />
                         <Route path="login" element={<Login />} />
@@ -65,6 +68,7 @@ const App = () => {
 
                         <Route path="" element={<ProtectedRoute role={"tutor"} />}>
                             <Route path="/allcourses" element={<AllCourses />} />
+                            <Route path="/mycourses" element={<MyCourses />} />
                             <Route path="add" element={<UpsertCourses />} />
                             <Route path="edit/:_id" element={<UpsertCourses />} />
                         </Route>

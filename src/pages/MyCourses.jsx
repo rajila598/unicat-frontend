@@ -6,10 +6,15 @@ import { MdEdit } from "react-icons/md";
 import { FaTrash } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
-const AllCourses = () => {
+const MyCourses = () => {
     // const user = useSelector((store) => store.user.value);
     const user = JSON.parse(localStorage.getItem("user"));
     const [courses, setCourses] = useState([]);
+    const checkCourse = () => {
+        if(courses.createdBy?._id === user._id){
+            return courses;
+        }
+    }
     let token = localStorage.getItem("token");
     useEffect(() => {
         axios
@@ -19,11 +24,15 @@ const AllCourses = () => {
                 },
             })
             .then((res) => {
-                setCourses(res.data.data);
+                let allCourses = res.data.data;
+                let course = allCourses.filter((el) => (el.createdBy?._id === user._id))
+                setCourses(course);
+                console.log("tutor courses", course);
                 console.log("course data", res.data.data);
+                // console.log("created by data", allCourses.createdBy);
             });
     }, []);
-
+    
     return (
         <>
             <div className="bg-white py-8">
@@ -33,17 +42,26 @@ const AllCourses = () => {
                             <tr>
                                 <th className="border border-secondary px-4 py-2">Title</th>
                                 <th className="border border-secondary px-4 py-2">Price</th>
-                                <th className="border border-secondary px-4 py-2">Tutor</th>
+                                <th className="border border-secondary px-4 py-2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             {courses.map((el) => {
+                                
                                 return (
                                     <>
                                         <tr>
+                                            
                                             <td className="border border-secondary px-4 py-2">{el.title}</td>
                                             <td className="border border-secondary px-4 py-2">{el.price}</td>
-                                            <td className="border border-secondary  px-4 py-2">{el.createdBy?.name}</td>
+                                            <td className="border border-secondary  px-4 py-2">
+                                                <div className="flex gap-4">
+                                                    <Link to={`/edit/${el._id}`}>
+                                                        <MdEdit />
+                                                    </Link>
+                                                    <FaTrash />
+                                                </div>
+                                            </td>
                                         </tr>
                                     </>
                                 );
@@ -56,4 +74,4 @@ const AllCourses = () => {
     );
 };
 
-export default AllCourses;
+export default MyCourses;
