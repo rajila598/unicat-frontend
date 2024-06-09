@@ -12,7 +12,7 @@ const Courses = () => {
     const [totalCourseCount, setTotalCourseCount] = useState(0);
     const [searchParams, setSearchParams] = useSearchParams();
     const [searchError, setSearchError] = useState(false);
-    const [priceRange, setPriceRange] = useState('');
+    const [priceRange, setPriceRange] = useState("");
     let priceFrom;
     let priceTo;
     const args = {
@@ -65,9 +65,9 @@ const Courses = () => {
     const handlePerPageChange = (e) => {
         setPerPage(e.target.value);
     };
-    if(priceRange){
-        let price = priceRange.split('-').map(Number);
-        console.log("----from---",price[0],"----to----", price[1])
+    if (priceRange) {
+        let price = priceRange.split("-").map(Number);
+        console.log("----from---", price[0], "----to----", price[1]);
         priceFrom = price[0];
         priceTo = price[1];
     }
@@ -79,15 +79,15 @@ const Courses = () => {
                 console.log(res.data.data);
                 setCourses(res.data.data);
                 setTotalCourseCount(res.data.total);
-                if(res.data == {}){
-                    setSearchError(res)
+                if (res.data == {}) {
+                    setSearchError(res);
                     console.log(res);
                 }
             })
             .catch((err) => {
                 setCourses(coursesData);
                 setPerPage(6);
-                setPage(1)
+                setPage(1);
                 console.log(err);
             });
     }, [perPage, page, searchParams, priceRange]);
@@ -99,14 +99,13 @@ const Courses = () => {
     const handleSearch = (e) => {
         e.preventDefault;
         search = e.target.name.value;
-        
-    }
+    };
     const handlePriceSearch = (e) => {
         e.preventDefault;
-        
+
         setPriceRange(e.target.value);
         // navigate('/courses');
-    }
+    };
     return (
         <>
             <div className="bg-white">
@@ -116,7 +115,7 @@ const Courses = () => {
                             {/* search form */}
                             <div className="bg-third p-4 mb-10">
                                 <form action="" className="flex flex-col items-center  gap-5 lg:flex-row justify-center" onSubmit={handleSearch}>
-                                    <input type="text" placeholder="Search Courses" className="form-input w-60" name="search"/>
+                                    <input type="text" placeholder="Search Courses" className="form-input w-60" name="search" />
                                     <select name="" id="" className="form-input w-60">
                                         <option value="">All Categories</option>
                                         <option value="it">IT & Software</option>
@@ -124,12 +123,12 @@ const Courses = () => {
                                         <option value="science">Science</option>
                                     </select>
                                     <select className="form-input text-third-2" onChange={handlePriceSearch}>
-                                                <option value="">Select Price Type</option>
-                                                <option value="0-1000">0-1000</option>
-                                                <option value="1000-5000">1000-5000</option>
-                                                <option value="5000-10000">5000-10000</option>
-                                                <option value="10000-15000">10000-15000</option>
-                                            </select>
+                                        <option value="">Select Price Type</option>
+                                        <option value="0-1000">0-1000</option>
+                                        <option value="1000-5000">1000-5000</option>
+                                        <option value="5000-10000">5000-10000</option>
+                                        <option value="10000-15000">10000-15000</option>
+                                    </select>
                                     <div className="btn-div">
                                         <button className="btn-text w-32">Search Now</button>
                                     </div>
@@ -140,14 +139,16 @@ const Courses = () => {
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-4">
                                 {courses.map((el) => {
                                     return (
-                                        <CoursesBlog
-                                            key={el._id}
-                                            image={el.image}
-                                            title={el.title}
-                                            name={el.createdBy?.name || el.name}
-                                            description={el.description}
-                                            price={el.price}
-                                        />
+                                        <Link key={el._id} to={`/courses/${el._id}`}>
+                                            <CoursesBlog
+                                                key={el._id}
+                                                image={el.image}
+                                                title={el.title}
+                                                name={el.createdBy?.name || el.name}
+                                                description={el.description}
+                                                price={el.price}
+                                            />
+                                        </Link>
                                     );
                                 })}
                             </div>
@@ -160,7 +161,7 @@ const Courses = () => {
                                             {el}
                                         </Button>
                                     ))}
-                                    
+
                                     {/* <Button className="join-item ">2</Button>
                                     <Button className="join-item ">3</Button>
                                     <Button className="join-item">4</Button> */}
