@@ -4,6 +4,9 @@ import ReactStars from "react-rating-stars-component";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { FaRegClock } from "react-icons/fa";
 import { VITE_API_URL } from "../constants/domain";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const CourseDetails = () => {
     const [currentTab, setCurrentTab] = useState("DESCRIPTION");
@@ -15,23 +18,41 @@ const CourseDetails = () => {
     const args = {
         icon: "arrow",
     };
+    const [tutor, setTutor] = useState([]);
+    const [data, setData] = useState([]);
+    const { _id } = useParams();
+    console.log(_id);
     useEffect(() => {
-        axios.get(`${VITE_API_URL}/courses/${_id}`)
-        .then(res => {
-            console.log(res);
-        })
-    })
+        if (_id) {
+            axios
+                .get(`${VITE_API_URL}/courses/${_id}`)
+                .then((res) => {
+                    setData(res.data);
+                    console.log(res.data);
+                    console.log(res);
+                })
+                .catch((err) => {
+                    toast.error("Something went wrong");
+                    console.log(err);
+                });
+        }
+        
+    }, [_id]);
+    
+    // if (!data) {
+    //     return <p>Loading...</p>;
+    // }
     return (
         <>
             <div className="bg-white">
                 <div className="container flex gap-4">
                     <div className="flex flex-col lg:flex-row gap-8">
                         <div className="max-w-[640px] sm:max-w-[640px] md:max-w-[768px] lg:max-w-[600px] xl:max-w-[850px]">
-                            <div className="title text-left pb-10">Software Training</div>
+                            <div className="title text-left pb-10">{data.title}</div>
                             <div className="bg-third flex flex-col lg:flex-row gap-3 lg:justify-around p-5">
                                 <div className="">
                                     <p className="font-bold text-secondary">Teacher:</p>
-                                    <p className="text-sm text-secondary">Jacke Masito</p>
+                                    <p className="text-sm text-secondary">Jackie Masito</p>
                                 </div>
                                 <div className="lg:border-x-third-2 lg:border-x-2 lg:px-16">
                                     <p className="font-bold text-secondary">Reviews:</p>
@@ -41,11 +62,11 @@ const CourseDetails = () => {
                                 </div>
                                 <div className="">
                                     <p className="font-bold text-secondary">Categories:</p>
-                                    <p className="text-sm text-secondary">Language</p>
+                                    <p className="text-sm text-secondary">{data.category}</p>
                                 </div>
                             </div>
                             <div className="my-4">
-                                <img src="/assets/images/course_1.jpg" alt="" />
+                                <img src={data.image} alt="" />
                             </div>
                             <div className="">
                                 <ul className="flex gap-2 capitalize">
@@ -68,14 +89,19 @@ const CourseDetails = () => {
                             </div>
                             <div className={`${currentTab === "DESCRIPTION" ? "block" : "hidden"}`}>
                                 <div className="p-2">
-                                    <p className="title text-left">Software Training</p>
-                                    <p>description</p>
-                                    <p className="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis ea voluptate corporis. Magnam expedita consectetur debitis, cupiditate quasi odio sed, fugiat minus pariatur doloribus suscipit nihil, error cum tenetur eum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab animi minima nulla et cupiditate! Ipsa sed itaque distinctio? Inventore, modi magni sequi velit cupiditate vitae asperiores voluptatem libero eum accusamus?</p>
+                                    <p className="title text-left">{data.title}</p>
+                                    <p className="py-4">{data.description}</p>
+                                    <p className="text-justify">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis ea voluptate corporis. Magnam expedita consectetur
+                                        debitis, cupiditate quasi odio sed, fugiat minus pariatur doloribus suscipit nihil, error cum tenetur eum. Lorem ipsum
+                                        dolor sit amet consectetur adipisicing elit. Ab animi minima nulla et cupiditate! Ipsa sed itaque distinctio? Inventore,
+                                        modi magni sequi velit cupiditate vitae asperiores voluptatem libero eum accusamus?
+                                    </p>
                                 </div>
                             </div>
                             <div className={`${currentTab === "CURRICULUM" ? "block" : "hidden"}`}>
                                 <div className="p-2">
-                                    <p className="title text-left">Software Training</p>
+                                    <p className="title text-left">{data.title}</p>
 
                                     <div className="">
                                         <div className="flex flex-wrap gap-2 text-secondary">
@@ -154,7 +180,7 @@ const CourseDetails = () => {
                         </div>
                         <div>
                             <p className="title text-left pb-4">Course Features</p>
-                            <p className="text-2xl text-primary">$180</p>
+                            <p className="text-2xl text-primary">${data.price}</p>
                             <div className="flex flex-col gap-3 py-5">
                                 <div className="flex justify-between">
                                     <div className="flex gap-2 items-center">
@@ -179,7 +205,10 @@ const CourseDetails = () => {
                                     <p className="">Department</p>
                                 </div>
                             </div>
-                            <div className="text-justify">Hi, I am Jackie Masito. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptatum natus qui iure, molestiae asperiores modi nam incidunt quidem, esse, quas minima assumenda in repellendus quaerat odit voluptate libero! Exercitationem.</div>
+                            <div className="text-justify">
+                                Hi, I am Jackie Masito. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptatum natus qui iure, molestiae
+                                asperiores modi nam incidunt quidem, esse, quas minima assumenda in repellendus quaerat odit voluptate libero! Exercitationem.
+                            </div>
                         </div>
                     </div>
                 </div>

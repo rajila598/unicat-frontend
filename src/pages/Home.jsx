@@ -20,27 +20,27 @@ const Home = () => {
     const [priceFrom, setPriceFrom] = useState("");
     const [priceTo, setPriceTo] = useState("");
     const navigate = useNavigate();
-    function SampleNextArrow(props) {
-        const { className, style, onClick } = props;
-        return (
-            <div className={`${className} -translate-x-[100px] bg-gray-300 w-8 h-8 rounded-full`} style={{ ...style, display: "block" }} onClick={onClick} />
-        );
-    }
+    // function SampleNextArrow(props) {
+    //     const { className, style, onClick } = props;
+    //     return (
+    //         <div className={`${className} -translate-x-[100px] bg-gray-300 w-8 h-8 rounded-full`} style={{ ...style, display: "block" }} onClick={onClick} />
+    //     );
+    // }
 
-    function SamplePrevArrow(props) {
-        const { className, style, onClick } = props;
-        return (
-            <div className={`${className} translate-x-[100px] bg-gray-300 rounded-full p-3 w-8 h-8`} style={{ ...style, display: "block" }} onClick={onClick} />
-        );
-    }
+    // function SamplePrevArrow(props) {
+    //     const { className, style, onClick } = props;
+    //     return (
+    //         <div className={`${className} translate-x-[100px] bg-gray-300 rounded-full p-3 w-8 h-8`} style={{ ...style, display: "block" }} onClick={onClick} />
+    //     );
+    // }
     const settings = {
         dots: true,
         infinite: true,
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        // nextArrow: <SampleNextArrow />,
-        // prevArrow: <SamplePrevArrow />,
+        nextArrow: false,
+        prevArrow: false
     };
     let bannerData = [
         {
@@ -282,14 +282,17 @@ const Home = () => {
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 py-4">
                         {popularCourses.map((el) => {
                             return (
-                                <CoursesBlog
-                                    key={el._id}
-                                    image={el.image}
-                                    title={el.title}
-                                    name={el.createdBy?.name || el.name}
-                                    description={el.description}
-                                    price={el.price}
-                                />
+                                <Link key={el._id} to={`/courses/${el._id}`}>
+
+                                    <CoursesBlog
+                                        key={el._id}
+                                        image={el.image}
+                                        title={el.title}
+                                        name={el.createdBy?.name || el.name}
+                                        description={el.description}
+                                        price={el.price}
+                                    />
+                                </Link>
                             );
                         })}
                     </div>
