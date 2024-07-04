@@ -16,20 +16,27 @@ const UpsertCourses = () => {
     const [data, setData] = useState(initialValue);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [validationErrors, setValidationErrors] = useState({});
+    const [text, setText] = useState("Add");
     console.log(_id);
     useEffect(() => {
         if (_id) {
+            setText("Edit");
             axios
                 .get(`${VITE_API_URL}/courses/${_id}`)
                 .then((res) => {
-                    setData(res.data.data);
-                    console.log(res.data.data);
+                    const courseData = res.data;
+                    // Ensure category is an array
+                    if (!Array.isArray(courseData.category)) {
+                        courseData.category = [""]; // or [] or any default array
+                    }
+                    setData(courseData);
+                    console.log(courseData);
                 })
                 .catch((err) => {
                     toast.error("something is wrong");
                 });
         }
-    });
+    }, [_id]);
     const handleSubmit = (e) => {
         e.preventDefault();
         let token = localStorage.getItem("token");
@@ -105,13 +112,13 @@ const UpsertCourses = () => {
 
         toast("deleted");
     };
-    let category = ["one", "two", "three"];
+    let categories = data.category;
     return (
         <>
             <div className="bg-white">
                 <div className="container  flex justify-center pb-10">
                     <div className="w-[600px]">
-                        <p className="title p-8">Add Courses</p>
+                        <p className="title p-8">{text} Courses</p>
                         <form action="" className="flex flex-col gap-5" onSubmit={handleSubmit}>
                             <label htmlFor="">Course Title</label>
                             <input type="text" className="form-input" name="title" value={data.title} onChange={handleChange} />
@@ -159,12 +166,7 @@ const UpsertCourses = () => {
                             {validationErrors && <span className="text-sm text-red-500">{validationErrors.price}</span>}
 
                             <label htmlFor="">Image</label>
-                            <input
-                                type="file"
-                                className="form-input"
-                                name="image"
-                                onChange={handleChange}
-                            />
+                            <input type="file" className="form-input" name="image" onChange={handleChange} />
                             {validationErrors && <span className="text-sm text-red-500">{validationErrors.image}</span>}
                             <div className="btn-div">
                                 <button className="btn-text" type="submit">

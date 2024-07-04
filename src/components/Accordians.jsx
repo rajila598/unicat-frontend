@@ -2,21 +2,18 @@ import { Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, Ac
 
 import "react-accessible-accordion/dist/fancy-example.css";
 
-const Accordians = () => {
+const Accordians = ({ name, message }) => {
     return (
         <Accordion allowZeroExpanded className="md:w-[500px]">
             <AccordionItem>
                 <AccordionItemHeading className="string[transition duration-300]">
-                    <AccordionItemButton>Award for Best School 2017</AccordionItemButton>
+                    <AccordionItemButton>{name}</AccordionItemButton>
                 </AccordionItemHeading>
                 <AccordionItemPanel>
-                    <p>
-                        Exercitation in fugiat est ut ad ea cupidatat ut in cupidatat occaecat ut occaecat consequat est minim minim esse tempor laborum
-                        consequat esse adipisicing eu reprehenderit enim.
-                    </p>
+                    <p>{message}</p>
                 </AccordionItemPanel>
             </AccordionItem>
-            <AccordionItem>
+            {/* <AccordionItem>
                 <AccordionItemHeading>
                     <AccordionItemButton>You&apos;re learning from the best</AccordionItemButton>
                 </AccordionItemHeading>
@@ -48,7 +45,7 @@ const Accordians = () => {
                         duis nulla non.
                     </p>
                 </AccordionItemPanel>
-            </AccordionItem>
+            </AccordionItem> */}
         </Accordion>
     );
 };

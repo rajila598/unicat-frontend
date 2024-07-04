@@ -19,6 +19,7 @@ const Home = () => {
     const [priceRange, setPriceRange] = useState("");
     const [priceFrom, setPriceFrom] = useState("");
     const [priceTo, setPriceTo] = useState("");
+    const [userQuery, setUserQuery] = useState("");
     const navigate = useNavigate();
     // function SampleNextArrow(props) {
     //     const { className, style, onClick } = props;
@@ -40,7 +41,7 @@ const Home = () => {
         slidesToShow: 1,
         slidesToScroll: 1,
         nextArrow: false,
-        prevArrow: false
+        prevArrow: false,
     };
     let bannerData = [
         {
@@ -180,6 +181,7 @@ const Home = () => {
         setPriceFrom(price[0]);
         setPriceTo(price[1]);
     }
+
     useEffect(() => {
         let search = searchParams.get("search") || "";
         axios
@@ -215,8 +217,8 @@ const Home = () => {
     const handlePriceSearch = (e) => {
         e.preventDefault;
         setPriceRange(e.target.value);
-        
-        navigate('/courses');
+
+        navigate("/courses");
     };
     return (
         <>
@@ -234,7 +236,6 @@ const Home = () => {
                                 >
                                     <p className="text-4xl md:text-6xl text-secondary font-bold text-center">{el.title}</p>
                                     <p className="text-xl md:text-2xl text-third-2 text-center">{el.subTitle}</p>
-                                    
                                 </div>
                             </>
                         );
@@ -283,7 +284,6 @@ const Home = () => {
                         {popularCourses.map((el) => {
                             return (
                                 <Link key={el._id} to={`/courses/${el._id}`}>
-
                                     <CoursesBlog
                                         key={el._id}
                                         image={el.image}

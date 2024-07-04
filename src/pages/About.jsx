@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 
 const About = () => {
     const [tutor, setTutor] = useState([]);
+    const [userQuery, setUserQuery] = useState([]);
     let tutorData = [
         {
             image: "/assets/images/team_1.jpg",
@@ -30,6 +31,7 @@ const About = () => {
             department: "Math & physics",
         },
     ];
+
     useEffect(() => {
         axios
             .get(`${VITE_API_URL}/auth/tutor`)
@@ -40,6 +42,17 @@ const About = () => {
             .catch((err) => {
                 setTutor(tutorData);
                 console.log(err);
+            });
+
+        axios
+            .get(`${VITE_API_URL}/contact`)
+            .then((res) => {
+                console.log(res.data, "userinfo");
+                setUserQuery(res.data);
+                console.log(userQuery, "-----------");
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error);
             });
     }, []);
     var settings = {
@@ -189,7 +202,9 @@ const About = () => {
                         </p>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
                             <div>
-                                <Accordians />
+                                {userQuery.map((item, index) => {
+                                    return <Accordians key={index} name={item.name} message={item.message} />;
+                                })}
                             </div>
                             <div className="">
                                 <img src="/assets/images/course_2.jpg" />

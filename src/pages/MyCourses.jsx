@@ -17,26 +17,38 @@ const MyCourses = () => {
         }
     };
     let token = localStorage.getItem("token");
-    const handleDelete = (_id) => {
-        axios.delete(`${VITE_API_URL}/courses/${_id}`).then((res) => {
-            toast("sucessfully deleted");
-        });
-    };
-    useEffect(() => {
-        axios
-            .get(`${VITE_API_URL}/courses`, {
+    const handleDelete = async (_id) => {
+        try {
+            await axios.delete(`${VITE_API_URL}/courses/${_id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
-            })
-            .then((res) => {
-                let allCourses = res.data.data;
-                let course = allCourses.filter((el) => el.createdBy?._id === user._id);
-                setCourses(course);
-                console.log("tutor courses", course);
-                console.log("course data", res.data.data);
-                // console.log("created by data", allCourses.createdBy);
             });
+            setCourses((prevCourses) => prevCourses.filter((course) => course._id !== _id));
+            toast("Successfully deleted");
+        } catch (err) {
+            toast.error("Failed to delete the course");
+        }
+    };
+    useEffect(() => {
+        if (token && user) {
+            axios
+                .get(`${VITE_API_URL}/courses`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+                .then((res) => {
+                    let allCourses = res.data.data;
+                    let course = allCourses.filter((el) => el.createdBy?._id === user._id);
+                    setCourses(course);
+                    console.log("tutor courses", course);
+                    console.log("course data", res.data.data);
+                })
+                .catch((err) => {
+                    toast.error("Failed to fetch courses");
+                });
+        }
     }, []);
 
     return (
@@ -68,7 +80,7 @@ const MyCourses = () => {
                                                     <Link to={`/edit/${el._id}`}>
                                                         <MdEdit />
                                                     </Link>
-                                                    <FaTrash onClick={handleDelete(el._id)} />
+                                                    <FaTrash onClick={() => handleDelete(el._id)} />
                                                 </div>
                                             </td>
                                         </tr>

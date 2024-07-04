@@ -2,16 +2,33 @@ import axios from "axios";
 import { useEffect } from "react";
 import { VITE_API_URL } from "../constants/domain";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const Contact = () => {
-    let [contactInfo, setContactInfo] = useState([]);
-    useEffect(() => {
-        axios.get(`${VITE_API_URL}/api/contact`)
-        .then((res) => {
-            console.log(res.data);  //??? res.data.?k auncha
-            // setContactInfo()
-        });
-    });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        try {
+            axios
+                .post(`${VITE_API_URL}/contact`, {
+                    name: e.target.name.value,
+                    email: e.target.email.value,
+                    message: e.target.message.value,
+                })
+                .then((res) => {
+                    setIsSubmitting(false);
+                    toast("Form Submitted");
+                });
+        } catch (err) {
+            console.log(err);
+        }
+    };
+    // useEffect(() => {
+    //     axios.get(`${VITE_API_URL}/api/contact`).then((res) => {
+    //         console.log(res.data); //??? res.data.?k auncha
+    //         // setContactInfo()
+    //     });
+    // });
     return (
         <>
             <div className="bg-white">
@@ -28,15 +45,17 @@ const Contact = () => {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 py-10">
                         <div>
                             <p className="title mb-6 text-left">Contact Form</p>
-                            <form action="" className="flex flex-col gap-5">
+                            <form action="" className="flex flex-col gap-5" onSubmit={handleSubmit}>
                                 <label htmlFor="">Name</label>
-                                <input type="text" className="form-input" />
+                                <input type="text" className="form-input" name="name" />
                                 <label htmlFor="">Email</label>
-                                <input type="text" className="form-input" />
+                                <input type="text" className="form-input" name="email" />
                                 <label htmlFor="">Message</label>
-                                <textarea name="" id="" cols="30" rows="5" className="form-input"></textarea>
+                                <textarea name="message" id="" cols="30" rows="5" className="form-input"></textarea>
                                 <div className="btn-div w-48">
-                                    <button className="btn-text">Submit Now</button>
+                                    <button className="btn-text" type="submit">
+                                        Submit Now
+                                    </button>
                                 </div>
                             </form>
                         </div>
