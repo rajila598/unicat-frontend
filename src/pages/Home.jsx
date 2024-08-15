@@ -21,19 +21,6 @@ const Home = () => {
     const [priceTo, setPriceTo] = useState("");
     const [userQuery, setUserQuery] = useState("");
     const navigate = useNavigate();
-    // function SampleNextArrow(props) {
-    //     const { className, style, onClick } = props;
-    //     return (
-    //         <div className={`${className} -translate-x-[100px] bg-gray-300 w-8 h-8 rounded-full`} style={{ ...style, display: "block" }} onClick={onClick} />
-    //     );
-    // }
-
-    // function SamplePrevArrow(props) {
-    //     const { className, style, onClick } = props;
-    //     return (
-    //         <div className={`${className} translate-x-[100px] bg-gray-300 rounded-full p-3 w-8 h-8`} style={{ ...style, display: "block" }} onClick={onClick} />
-    //     );
-    // }
     const settings = {
         dots: true,
         infinite: true,
@@ -42,6 +29,7 @@ const Home = () => {
         slidesToScroll: 1,
         nextArrow: false,
         prevArrow: false,
+        arrows: false,
     };
     let bannerData = [
         {

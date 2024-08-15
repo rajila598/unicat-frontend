@@ -10,11 +10,11 @@ import { logout } from "../app/slice/userSlice";
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const user = useSelector((store) => store.user.value);
-    const users = JSON.parse(localStorage.getItem("user"))
+    const users = JSON.parse(localStorage.getItem("user"));
     const dispatch = useDispatch();
     const handleLogout = () => {
         dispatch(logout());
-    }
+    };
 
     return (
         <>
@@ -40,7 +40,9 @@ const Header = () => {
                                 {users ? (
                                     <>
                                         <Dropdown dataTheme="light">
-                                            <Dropdown.Toggle><p className="text-third-2">{users.name}</p></Dropdown.Toggle>
+                                            <Dropdown.Toggle>
+                                                <p className="text-third-2">{users.name}</p>
+                                            </Dropdown.Toggle>
                                             <Dropdown.Menu className="w-52">
                                                 <Dropdown.Item>
                                                     <Link to={"/allcourses"}>All Courses</Link>
@@ -48,9 +50,7 @@ const Header = () => {
                                                 <Dropdown.Item>
                                                     <Link to={"/mycourses"}>My Courses</Link>
                                                 </Dropdown.Item>
-                                                <Dropdown.Item onClick={handleLogout}>
-                                                    Logout
-                                                </Dropdown.Item>
+                                                <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown>
                                     </>
@@ -80,7 +80,7 @@ const Header = () => {
                             <div className="flex gap-10 items-center relative h-auto">
                                 <ul
                                     className={`${
-                                        isMenuOpen ? "flex absolute top-0 -left-14" : "hidden"
+                                        isMenuOpen ? "flex absolute top-0 -left-14 z-50 pr-5 transition-all delay-150 transform" : "hidden"
                                     } flex-col gap-5 items-end bg-third pt-16 w-32 h-screen lg:pt-0 lg:bg-white lg:relative lg:w-auto lg:h-auto lg:flex lg:flex-row lg:gap-4 lg:items-center`}
                                 >
                                     <FaTimes
@@ -89,7 +89,7 @@ const Header = () => {
                                             setIsMenuOpen((prev) => !prev);
                                         }}
                                     />
-                                    <form action="post" className={`${isMenuOpen ? "block" : "hidden"} w-24 lg:hidden`}>
+                                    <form action="post" className={`${isMenuOpen ? "hidden" : "hidden"} w-24 lg:hidden z-50`}>
                                         <input type="text" placeholder="search" className="w-24" />
                                     </form>
                                     <Link to={"/"} className="text-lg font-medium text-secondary active:text-primary active:underline">
