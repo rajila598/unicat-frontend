@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import UpsertCourses from "./pages/UpsertCourses";
 import AllCourses from "./pages/AllCourses";
 import { useEffect, useState } from "react";
-import { VITE_API_URL } from "./constants/domain";
+// import { VITE_API_URL } from "./constants/domain";
 import { useDispatch } from "react-redux";
 import { setUser } from "./app/slice/userSlice";
 import axios from "axios";
@@ -25,6 +25,7 @@ import CourseDetails from "./pages/CourseDetails";
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
     const dispatch = useDispatch();
+    const VITE_API_URL = "https://unicat-backend.onrender.com";
     useEffect(() => {
         let token = localStorage.getItem("token");
         if (token) {
